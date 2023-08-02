@@ -26,9 +26,6 @@ RUN choco install powershell-core --yes --version $Env:PowershellVersion --no-pr
 
 SHELL ["pwsh", "-Command"]
 
-# Install NuGet package provider
-RUN Install-PackageProvider -Name NuGet
-
 # Install dotnet 6.0+
 RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-install.ps1'; `
     [Environment]::SetEnvironmentVariable('DOTNET_CLI_TELEMETRY_OPTOUT', '1', 'Machine'); `
