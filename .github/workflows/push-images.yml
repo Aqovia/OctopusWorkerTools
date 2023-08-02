@@ -8,7 +8,7 @@ env:
   SUBSCRIPTON_CREDENTIALS: ${{ secrets.AZURE_AQOVIA_CI_RG_CREDENTIALS }}
   CONTAINER_REGISTRY_NAME: aqovia
   CONTAINER_REPOSITORY: octopus-workers
-  IMAGE_TAG: 1.0
+  IMAGE_TAG: '1.0'
 
 jobs:
   build-and-push:
