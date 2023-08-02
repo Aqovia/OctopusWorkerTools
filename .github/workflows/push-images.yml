@@ -8,13 +8,13 @@ env:
   SUBSCRIPTON_CREDENTIALS: ${{ secrets.AZURE_AQOVIA_CI_RG_CREDENTIALS }}
   CONTAINER_REGISTRY_NAME: aqovia
   CONTAINER_REPOSITORY: octopus-workers
+  IMAGE_TAG: 1.0
 
 jobs:
   build-and-push:
     strategy:
       matrix:
         name: ["ubuntu-22.04", "windows-ltsc2019"]
-        tag: ["1.0-ubuntu-22.04", "1.0-windows-ltsc2019"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -26,4 +26,7 @@ jobs:
         with:
           inlineScript: |
             az acr login --name ${{ env.CONTAINER_REGISTRY_NAME }}
-            az acr build --registry ${{ env.CONTAINER_REGISTRY_NAME }} --file '${{ matrix.name }}/dockerfile' --image '${{ env.CONTAINER_REPOSITORY }}:${{ matrix.tag }}'
+            az acr build \
+              --registry ${{ env.CONTAINER_REGISTRY_NAME }} \
+              --file '${{ matrix.name }}/dockerfile' \
+              --image '${{ env.CONTAINER_REPOSITORY }}:${{ env.IMAGE_TAG }}-${{ matrix.name }}'
