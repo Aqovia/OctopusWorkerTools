@@ -14,7 +14,7 @@ jobs:
   build-and-push:
     strategy:
       matrix:
-        name: ["ubuntu-22.04", "windows-ltsc2019"]
+        name: ["ubuntu-22.04-node10", "ubuntu-22.04-node18", "windows-ltsc2019-node10", "windows-ltsc2019-node18"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

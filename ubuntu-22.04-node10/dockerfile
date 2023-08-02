@@ -9,7 +9,7 @@ ARG KubeloginVersion=v0.0.25
 ARG OctopusCliVersion=9.1.7
 ARG OctopusClientVersion=11.6.3644
 ARG PowershellVersion=7.2.7-1.deb
-ARG NodejsVersion=14
+ARG NodejsVersion=10
 
 # get `wget` & software-properties-common
 # https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7#ubuntu-1804
