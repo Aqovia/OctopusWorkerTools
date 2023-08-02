@@ -17,7 +17,7 @@ jobs:
         name: ["ubuntu-20.04-node10", "ubuntu-22.04-node18", "windows-ltsc2019-node10", "windows-ltsc2019-node18"]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: azure/login@v1
         name: azure cli login
         with:
