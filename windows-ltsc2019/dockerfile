@@ -21,6 +21,11 @@ RUN $ProgressPreference = 'SilentlyContinue'; `
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
     iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
+# # Install Powershell Core
+RUN choco install powershell-core --yes --version $Env:Powershell_Version --no-progress
+
+SHELL ["pwsh", "-Command"]
+
 # Install NuGet package provider
 RUN Install-PackageProvider -Name NuGet
 
@@ -66,9 +71,6 @@ RUN choco install octopustools -y --version $Env:Octopus_Cli_Version --no-progre
 
 # # Install Octopus Client
 RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion $Env:Octopus_Client_Version
-
-# # Install Powershell Core
-RUN choco install powershell-core --yes --version $Env:Powershell_Version --no-progress
 
 # # Update path for new tools
 ADD .\scripts\update_path.cmd C:\update_path.cmd
