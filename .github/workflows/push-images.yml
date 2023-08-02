@@ -19,10 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: azure/login@v1
+        name: azure cli login
         with:
           creds: ${{ env.SUBSCRIPTON_CREDENTIALS }}
       - uses: azure/CLI@v1
-        name: Azure CLI script
+        name: build and push image
         with:
           inlineScript: |
             name='${{ matrix.name }}'
