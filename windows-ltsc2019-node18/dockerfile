@@ -70,5 +70,5 @@ RUN choco install octopustools -y --version $Env:OctopusCliVersion --no-progress
 RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion $Env:OctopusClientVersion
 
 # Update path for new tools
-COPY .\windows-ltsc2019\scripts\update_path.cmd C:\update_path.cmd
+COPY .\windows-ltsc2019-node18\scripts\update_path.cmd C:\update_path.cmd
 RUN C:\update_path.cmd;
