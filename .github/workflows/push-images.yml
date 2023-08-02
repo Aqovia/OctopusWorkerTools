@@ -28,5 +28,6 @@ jobs:
             az acr login --name ${{ env.CONTAINER_REGISTRY_NAME }} --expose-token
             az acr build \
               --registry ${{ env.CONTAINER_REGISTRY_NAME }} \
+              . \
               --file '${{ matrix.name }}/dockerfile' \
               --image '${{ env.CONTAINER_REPOSITORY }}:${{ env.IMAGE_TAG }}-${{ matrix.name }}'
