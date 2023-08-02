@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 ARG AzureCliVersion=2.44.1-1~bionic
 ARG AzurePowershellVersion=4.5.0
