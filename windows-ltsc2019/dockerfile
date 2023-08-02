@@ -30,6 +30,10 @@ RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-i
 # Install Azure CLI
 RUN choco install azure-cli -y --version $Env:Azure_Cli_Version --no-progress
 
+# Install Bicep using Azure CLI
+# https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-cli
+RUN az bicep install
+
 #Install Azure PowerShell modules
 # https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-3.6.1
 RUN Install-Module -Force -Name Az -AllowClobber -Scope AllUsers -MaximumVersion $Env:Azure_Powershell_Version; `
