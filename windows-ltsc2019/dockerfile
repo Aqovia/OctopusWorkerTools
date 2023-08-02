@@ -21,7 +21,7 @@ RUN $ProgressPreference = 'SilentlyContinue'; `
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
     iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-# # Install Powershell Core
+# Install Powershell Core
 RUN choco install powershell-core --yes --version $Env:PowershellVersion --no-progress
 
 SHELL ["pwsh", "-Command"]
@@ -39,36 +39,36 @@ RUN choco install azure-cli -y --version $Env:AzureCliVersion --no-progress
 # https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-cli
 RUN az bicep install
 
-#Install Azure PowerShell modules
+# Install Azure PowerShell modules
 # https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-3.6.1
 RUN Install-Module -Force -Name Az -AllowClobber -Scope AllUsers -MaximumVersion $Env:AzurePowershellVersion; `
     Enable-AzureRmAlias -Scope LocalMachine
 
-# # Install NodeJS
+# Install NodeJS
 RUN choco install nodejs-lts -y --version $Env:NodeJSVersion --no-progress
 
-# # Install kubectl
+# Install kubectl
 RUN Invoke-WebRequest "https://storage.googleapis.com/kubernetes-release/release/v${Env:KubectlVersion}/bin/windows/amd64/kubectl.exe" -OutFile .\kubectl.exe; `
     mv .\kubectl.exe C:\Windows\system32\;
 
-# Get Kubelogin
+# Install kubelogin
 RUN choco install azure-kubelogin --version $Env:KubeloginVersion --no-progress -y
 
-# # Install helm 3
+# Install helm 3
 RUN choco install -y kubernetes-helm --version $Env:HelmVersion --no-progress
 
-# # Install 7ZIP because gcloud
+# Install 7zip
 RUN choco install 7zip -y --version $Env:7ZipVersion --no-progress
 
-# # Install ScriptCS
+# Install ScriptCS
 RUN choco install scriptcs -y --version $Env:ScriptCs_Version --no-progress
 
-# # Install octo
+# Install Octopus Tools
 RUN choco install octopustools -y --version $Env:OctopusCliVersion --no-progress
 
-# # Install Octopus Client
+# Install Octopus Client
 RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion $Env:OctopusClientVersion
 
-# # Update path for new tools
-ADD .\scripts\update_path.cmd C:\update_path.cmd
-RUN .\update_path.cmd;
+# Update path for new tools
+COPY .\windows-ltsc2019\scripts\update_path.cmd C:\update_path.cmd
+RUN C:\update_path.cmd;
