@@ -9,7 +9,7 @@ ARG OctopusCliVersion=9.1.7
 ARG OctopusClientVersion=14.3.722
 ARG PowershellVersion=7.2.13
 ARG ScriptCSVersion=0.17.1
-ARG 7ZipVersion=19.0
+ARG 7ZipVersion=23.1.0
 
 # Choco
 RUN $ProgressPreference = 'SilentlyContinue'; `
