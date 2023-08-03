@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 ARG DotnetSdkVersion=6.0
-ARG KubeloginVersion=v0.0.25
+ARG KubeloginVersion=v0.0.31
 ARG OctopusCliVersion=9.1.7
 ARG OctopusClientVersion=11.6.3644
 ARG PowershellVersion=7.2.7-1.deb
