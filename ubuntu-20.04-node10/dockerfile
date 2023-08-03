@@ -1,6 +1,5 @@
 FROM ubuntu:20.04
 
-ARG AzureCliVersion=2.44.1-1~bionic
 ARG AzurePowershellVersion=4.5.0
 ARG DotnetSdkVersion=6.0
 ARG HelmVersion=v3.7.1
@@ -68,7 +67,7 @@ RUN wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1
 RUN wget --quiet -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null && \
     echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ bionic main" | tee /etc/apt/sources.list.d/azure-cli.list && \
     apt-get update -qq && \
-    apt-get install -qq -y azure-cli=${AzureCliVersion}
+    apt-get install -qq -y azure-cli
 RUN az upgrade
 
 # Bicep using Azure CLI

@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
 SHELL ["powershell", "-Command"]
 
-ARG AzureCliVersion=2.44.0
 ARG AzurePowershellVersion=4.5.0
 ARG HelmVersion=3.7.1
 ARG KubectlVersion=1.18.8
@@ -36,7 +35,7 @@ RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-i
     rm dotnet-install.ps1
 
 # Azure CLI
-RUN choco install azure-cli -y --version $Env:AzureCliVersion --no-progress
+RUN choco install azure-cli -y --no-progress
 RUN az upgrade
 
 # Bicep using Azure CLI
