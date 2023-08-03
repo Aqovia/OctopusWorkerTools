@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
 SHELL ["powershell", "-Command"]
 
-ARG KubeloginVersion=0.0.31
+ARG KubeloginVersion=0.0.30
 ARG NodeJSVersion=18.17.0
 ARG OctopusCliVersion=9.1.7
 ARG OctopusClientVersion=14.3.722
