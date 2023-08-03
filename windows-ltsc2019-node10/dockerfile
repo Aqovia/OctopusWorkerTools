@@ -15,13 +15,13 @@ ARG PowershellVersion=7.2.7
 ARG ScriptCs_Version=0.17.1
 ARG 7ZipVersion=19.0
 
-# Install Choco
+# Choco
 RUN $ProgressPreference = 'SilentlyContinue'; `
     Set-ExecutionPolicy Bypass -Scope Process -Force; `
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
     iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-# Install Powershell Core
+# Powershell Core
 RUN choco install powershell-core --yes --version $Env:PowershellVersion --no-progress
 
 # Disable colors in PowerShell
@@ -29,47 +29,47 @@ RUN pwsh -c 'mkdir -p "$(dirname "$profile")" && touch "$profile" && echo '$PSSt
 
 SHELL ["pwsh", "-Command"]
 
-# Install dotnet 6.0+
+# dotnet 6.0+
 RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-install.ps1'; `
     [Environment]::SetEnvironmentVariable('DOTNET_CLI_TELEMETRY_OPTOUT', '1', 'Machine'); `
     .\dotnet-install.ps1 -Channel '6.0'; `
     rm dotnet-install.ps1
 
-# Install Azure CLI
+# Azure CLI
 RUN choco install azure-cli -y --version $Env:AzureCliVersion --no-progress
 
-# Install Bicep using Azure CLI
+# Bicep using Azure CLI
 # https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-cli
 RUN az bicep install
 
-# Install Azure PowerShell modules
+# Azure PowerShell modules
 # https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-3.6.1
 RUN Install-Module -Force -Name Az -AllowClobber -Scope AllUsers -MaximumVersion $Env:AzurePowershellVersion; `
     Enable-AzureRmAlias -Scope LocalMachine
 
-# Install NodeJS
+# NodeJS
 RUN choco install nodejs-lts -y --version $Env:NodeJSVersion --no-progress
 
-# Install kubectl
+# kubectl
 RUN Invoke-WebRequest "https://storage.googleapis.com/kubernetes-release/release/v${Env:KubectlVersion}/bin/windows/amd64/kubectl.exe" -OutFile .\kubectl.exe; `
     mv .\kubectl.exe C:\Windows\system32\;
 
-# Install kubelogin
+# kubelogin
 RUN choco install azure-kubelogin --version $Env:KubeloginVersion --no-progress -y
 
-# Install helm 3
+# helm 3
 RUN choco install -y kubernetes-helm --version $Env:HelmVersion --no-progress
 
-# Install 7zip
+# 7zip
 RUN choco install 7zip -y --version $Env:7ZipVersion --no-progress
 
-# Install ScriptCS
+# ScriptCS
 RUN choco install scriptcs -y --version $Env:ScriptCs_Version --no-progress
 
-# Install Octopus Tools
+# Octopus Tools
 RUN choco install octopustools -y --version $Env:OctopusCliVersion --no-progress
 
-# Install Octopus Client
+# Octopus Client
 RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion $Env:OctopusClientVersion
 
 # Update path for new tools
