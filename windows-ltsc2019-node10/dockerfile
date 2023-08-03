@@ -35,6 +35,9 @@ RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-i
 RUN choco install azure-cli -y --no-progress
 RUN az upgrade
 
+# Bicep
+RUN choco install bicep -y --no-progress
+
 # Bicep using Azure CLI
 # https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-cli
 RUN az bicep install

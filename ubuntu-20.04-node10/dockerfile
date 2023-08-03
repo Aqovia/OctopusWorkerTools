@@ -66,6 +66,11 @@ RUN wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 RUN az upgrade
 
+# Bicep manually
+RUN curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64 && \
+    chmod +x ./bicep && \
+    mv ./bicep /usr/local/bin/bicep
+
 # Bicep using Azure CLI
 # https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#azure-cli
 RUN az bicep install
