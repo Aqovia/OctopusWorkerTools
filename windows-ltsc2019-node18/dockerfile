@@ -24,6 +24,9 @@ RUN $ProgressPreference = 'SilentlyContinue'; `
 # Install Powershell Core
 RUN choco install powershell-core --yes --version $Env:PowershellVersion --no-progress
 
+# Disable colors in PowerShell
+RUN pwsh -c 'mkdir -p "$(dirname "$profile")" && touch "$profile" && echo '$PSStyle.OutputRendering = "PlainText"' >> $profile && . $profile'
+
 SHELL ["pwsh", "-Command"]
 
 # Install dotnet 6.0+

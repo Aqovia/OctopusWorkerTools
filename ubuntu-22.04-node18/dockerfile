@@ -23,7 +23,10 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsof
     add-apt-repository universe && \
     apt-get install -qq -y powershell=${PowershellVersion}
 
-# Get Octo CLI
+# Disable colors in PowerShell
+RUN pwsh -c 'mkdir -p "$(dirname "$profile")" && touch "$profile" && echo '$PSStyle.OutputRendering = "PlainText"' >> $profile && . $profile'
+
+# Octo CLI
 # https://octopus.com/downloads/octopuscli#linux
 RUN apt-get update -qq && \
     apt-get install -qq -y --no-install-recommends gnupg curl ca-certificates apt-transport-https && \
