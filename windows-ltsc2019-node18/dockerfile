@@ -7,7 +7,7 @@ ARG KubeloginVersion=0.0.31
 ARG NodeJSVersion=18.17.0
 ARG OctopusCliVersion=9.1.7
 ARG OctopusClientVersion=14.3.722
-ARG PowershellVersion=7.2.7
+ARG PowershellVersion=7.2.13
 ARG ScriptCs_Version=0.17.1
 ARG 7ZipVersion=19.0
 
