@@ -6,7 +6,7 @@ SHELL ["powershell", "-Command"]
 ARG KubeloginVersion=0.0.31
 ARG NodeJSVersion=10.24.1
 ARG OctopusCliVersion=9.1.7
-ARG OctopusClientVersion=11.6.3644
+ARG OctopusClientVersion=14.3.722
 ARG PowershellVersion=7.2.7
 ARG ScriptCs_Version=0.17.1
 ARG 7ZipVersion=19.0
