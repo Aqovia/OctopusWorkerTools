@@ -1,6 +1,5 @@
 FROM ubuntu:20.04
 
-ARG AzurePowershellVersion=4.5.0
 ARG DotnetSdkVersion=6.0
 ARG HelmVersion=v3.7.1
 ARG KubectlVersion=1.18.8-00
@@ -41,7 +40,7 @@ RUN pwsh -c 'Install-Package -Force Octopus.Client -MaximumVersion "'${OctopusCl
 
 # AZ Powershell core modules
 # https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-3.6.1
-RUN pwsh -c 'Install-Module -Force -Name Az -AllowClobber -Scope AllUsers -MaximumVersion "'${AzurePowershellVersion}'"'
+RUN pwsh -c 'Install-Module -Force -Name Az -AllowClobber -Scope AllUsers'
 
 # Helm3
 RUN wget --quiet -O - https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash -s -- -v ${HelmVersion}

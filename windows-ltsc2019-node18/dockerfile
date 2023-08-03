@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
 SHELL ["powershell", "-Command"]
 
-ARG AzurePowershellVersion=4.5.0
 ARG HelmVersion=3.7.1
 ARG KubectlVersion=1.18.8
 ARG KubeloginVersion=0.0.25
@@ -45,7 +44,7 @@ RUN az bicep upgrade
 
 # Azure PowerShell modules
 # https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-3.6.1
-RUN Install-Module -Force -Name Az -AllowClobber -Scope AllUsers -MaximumVersion $Env:AzurePowershellVersion; `
+RUN Install-Module -Force -Name Az -AllowClobber -Scope AllUsers; `
     Enable-AzureRmAlias -Scope LocalMachine
 
 # NodeJS
