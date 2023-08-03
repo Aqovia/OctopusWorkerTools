@@ -1,7 +1,6 @@
 FROM ubuntu:22.04
 
 ARG DotnetSdkVersion=6.0
-ARG HelmVersion=v3.7.1
 ARG KubectlVersion=1.18.8-00
 ARG KubeloginVersion=v0.0.25
 ARG OctopusCliVersion=9.1.7
@@ -43,7 +42,9 @@ RUN pwsh -c 'Install-Package -Force Octopus.Client -MaximumVersion "'${OctopusCl
 RUN pwsh -c 'Install-Module -Force -Name Az -AllowClobber -Scope AllUsers'
 
 # Helm3
-RUN wget --quiet -O - https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash -s -- -v ${HelmVersion}
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && \
+    chmod 700 get_helm.sh && \
+    ./get_helm.sh
 
 # .NET SDK 6.0
 # https://docs.microsoft.com/en-us/dotnet/core/install/linux-package-manager-ubuntu-1804

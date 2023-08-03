@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
 SHELL ["powershell", "-Command"]
 
-ARG HelmVersion=3.7.1
 ARG KubectlVersion=1.18.8
 ARG KubeloginVersion=0.0.25
 ARG NodeJSVersion=10.24.1
@@ -58,7 +57,7 @@ RUN Invoke-WebRequest "https://storage.googleapis.com/kubernetes-release/release
 RUN choco install azure-kubelogin --version $Env:KubeloginVersion --no-progress -y
 
 # helm 3
-RUN choco install -y kubernetes-helm --version $Env:HelmVersion --no-progress
+RUN choco install -y kubernetes-helm --version --no-progress
 
 # 7zip
 RUN choco install 7zip -y --version $Env:7ZipVersion --no-progress
