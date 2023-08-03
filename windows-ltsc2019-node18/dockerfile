@@ -8,7 +8,7 @@ ARG NodeJSVersion=18.17.0
 ARG OctopusCliVersion=9.1.7
 ARG OctopusClientVersion=14.3.722
 ARG PowershellVersion=7.2.13
-ARG ScriptCs_Version=0.17.1
+ARG ScriptCSVersion=0.17.1
 ARG 7ZipVersion=19.0
 
 # Choco
@@ -61,7 +61,7 @@ RUN choco install -y kubernetes-helm --no-progress
 RUN choco install 7zip -y --version $Env:7ZipVersion --no-progress
 
 # ScriptCS
-RUN choco install scriptcs -y --version $Env:ScriptCs_Version --no-progress
+RUN choco install scriptcs -y --version $Env:ScriptCSVersion --no-progress
 
 # Octopus Tools
 RUN choco install octopustools -y --version $Env:OctopusCliVersion --no-progress
