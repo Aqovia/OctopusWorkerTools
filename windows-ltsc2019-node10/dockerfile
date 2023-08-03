@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
 SHELL ["powershell", "-Command"]
 
-ARG KubectlVersion=1.18.8
 ARG KubeloginVersion=0.0.25
 ARG NodeJSVersion=10.24.1
 ARG OctopusCliVersion=9.1.7
@@ -50,8 +49,7 @@ RUN Install-Module -Force -Name Az -AllowClobber -Scope AllUsers; `
 RUN choco install nodejs-lts -y --version $Env:NodeJSVersion --no-progress
 
 # kubectl
-RUN Invoke-WebRequest "https://storage.googleapis.com/kubernetes-release/release/v${Env:KubectlVersion}/bin/windows/amd64/kubectl.exe" -OutFile .\kubectl.exe; `
-    mv .\kubectl.exe C:\Windows\system32\;
+RUN choco install kubernetes-cli -y --no-progress
 
 # kubelogin
 RUN choco install azure-kubelogin --version $Env:KubeloginVersion --no-progress -y

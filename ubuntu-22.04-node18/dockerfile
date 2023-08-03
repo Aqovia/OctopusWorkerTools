@@ -1,7 +1,6 @@
 FROM ubuntu:22.04
 
 ARG DotnetSdkVersion=6.0
-ARG KubectlVersion=1.18.8-00
 ARG KubeloginVersion=v0.0.25
 ARG OctopusCliVersion=9.1.7
 ARG OctopusClientVersion=11.6.3644
@@ -81,10 +80,13 @@ RUN wget --quiet -O - https://deb.nodesource.com/setup_${NodejsVersion}.x | bash
     apt-get install -qq -y nodejs
 
 # Kubectl
-# https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-using-native-package-management
-RUN wget --quiet -O - https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -  && \
-    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
-    apt-get update -qq && apt-get install -qq -y kubectl=${KubectlVersion}
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management
+RUN apt-get update && \
+    apt-get install -y ca-certificates curl apt-transport-https && \
+    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list && \
+    apt-get update && \
+    apt-get install -qq -y kubectl
 
 # Kubelogin
 RUN wget --quiet https://github.com/Azure/kubelogin/releases/download/${KubeloginVersion}/kubelogin-linux-amd64.zip && \
