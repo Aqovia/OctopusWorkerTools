@@ -22,8 +22,8 @@ RUN choco install powershell-core --yes --version $Env:PowershellVersion --no-pr
 
 SHELL ["pwsh", "-Command"]
 
-# Disable colors in PowerShell Core
-RUN New-Item -ItemType Directory -Force -Path $(Split-Path $profile -Parent); New-Item -Path $profile -Type File; Add-Content -Path $profile -Value '`$PSStyle.OutputRendering=`"PlainText`"'; . $profile;
+COPY .\scripts\update-profile.ps1 C:\update-profile.ps1
+RUN C:\update-profile.ps1
 
 # dotnet 6.0+
 RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-install.ps1'; `
@@ -44,8 +44,8 @@ RUN az bicep install
 RUN az bicep upgrade
 
 # Azure PowerShell modules
-# https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-3.6.1
-RUN Install-Module -Force -Name Az -AllowClobber -Scope AllUsers; `
+# https://learn.microsoft.com/bs-latn-ba/powershell/azure/install-azps-windows?view=azps-10.2.0&tabs=powershell&pivots=windows-psgallery
+RUN Install-Module -Name Az -Repository PSGallery -Scope AllUsers -AllowClobber -Force -Verbose; `
     Enable-AzureRmAlias -Scope LocalMachine
 
 # NodeJS
@@ -58,7 +58,7 @@ RUN choco install kubernetes-cli -y --no-progress
 RUN choco install azure-kubelogin --version $Env:KubeloginVersion --no-progress -y
 
 # helm 3
-RUN choco install -y kubernetes-helm --version --no-progress
+RUN choco install -y kubernetes-helm --no-progress
 
 # 7zip
 RUN choco install 7zip -y --version $Env:7ZipVersion --no-progress
@@ -73,5 +73,5 @@ RUN choco install octopustools -y --version $Env:OctopusCliVersion --no-progress
 RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion $Env:OctopusClientVersion
 
 # Update path for new tools
-COPY .\windows-ltsc2019-node10\scripts\update_path.cmd C:\update_path.cmd
-RUN C:\update_path.cmd;
+COPY .\scripts\update-path.cmd C:\update-path.cmd
+RUN C:\update-path.cmd;
