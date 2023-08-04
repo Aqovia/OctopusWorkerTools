@@ -22,8 +22,8 @@ RUN choco install powershell-core --yes --version $Env:PowershellVersion --no-pr
 
 SHELL ["pwsh", "-Command"]
 
-# Disable colors in PowerShell Core
-RUN New-Item -ItemType Directory -Force -Path $(Split-Path $profile -Parent); New-Item -Path $profile -Type File; Add-Content -Path $profile -Value '`$PSStyle.OutputRendering=`"PlainText`"'; . $profile;
+COPY .\scripts\update-profile.ps1 C:\update-profile.ps1
+RUN C:\update-profile.ps1
 
 # dotnet 6.0+
 RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-install.ps1'; `

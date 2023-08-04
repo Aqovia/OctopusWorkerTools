@@ -22,7 +22,8 @@ RUN choco install powershell-core --yes --version $Env:PowershellVersion --no-pr
 
 SHELL ["pwsh", "-Command"]
 
-RUN New-Item -ItemType Directory -Force -Path $(Split-Path $profile -Parent); New-Item -Path $profile -Type File; Add-Content -Path $profile -Value '`$PSStyle.OutputRendering=`"PlainText`"'; . $profile;
+COPY .\scripts\update-profile.ps1 C:\update-profile.ps1
+RUN C:\update-profile.ps1
 
 # dotnet 6.0+
 RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-install.ps1'; `
@@ -72,5 +73,5 @@ RUN choco install octopustools -y --version $Env:OctopusCliVersion --no-progress
 RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion $Env:OctopusClientVersion
 
 # Update path for new tools
-COPY .\windows-ltsc2019-node18\scripts\update_path.cmd C:\update_path.cmd
-RUN C:\update_path.cmd;
+COPY .\scripts\update-path.cmd C:\update-path.cmd
+RUN C:\update-path.cmd;

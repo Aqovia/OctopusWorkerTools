@@ -18,8 +18,8 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsof
     add-apt-repository universe && \
     apt-get install -qq -y powershell=${PowershellVersion}
 
-# Disable colors in PowerShell
-RUN pwsh -c 'mkdir -p "$(dirname $profile)"; touch $profile; echo "`$PSStyle.OutputRendering = `"PlainText`"" >> $profile; . $profile'
+COPY ./scripts/update-profile.ps1 /root/update-profile.ps1
+RUN pwsh -f /root/update-profile.ps1
 
 # Octo CLI
 # https://octopus.com/downloads/octopuscli#linux
